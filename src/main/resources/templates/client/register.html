@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+        function hideURLbar(){ window.scrollTo(0,1); }
+    </script>
+    <!-- Custom Theme files -->
+    <link rel="stylesheet" th:href="@{/signup.css}" type="text/css" media="all" />
+    <!-- //Custom Theme files -->
+    <!-- web font -->
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+</head>
+<body>
+<h1>Register</h1>
+<div class="main-w3layouts wrapper">
+    <div class="main-agileinfo">
+        <div class="agileits-top">
+            <form action="#" method="post" th:action="register" th:object="${registerrequest}">
+                <input class="text" type="text" th:field="*{fullName}" name="FullName" placeholder="Full Name"><br>
+                <div class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+                <input class="text" type="text" th:field="*{clientName}" name="Username" placeholder="Username"><br>
+                <div class="error" th:if="${#fields.hasErrors('clientName')}" th:errors="*{clientName}"></div>
+                <input class="text" type="password" th:field="*{password}" name="password" placeholder="Password"><br>
+                <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+                <input type="submit" value="SIGNUP">
+            </form>
+            <p>Have an Account? <a href="/login"> Login Now!</a></p>
+        </div>
+    </div>
+
+    <!-- //copyright -->
+    <ul class="colorlib-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+</html>

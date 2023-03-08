@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Ad</title>
+  <link rel="stylesheet" th:href="@{/login.css}" type="text/css" media="all" />
+</head>
+<body>
+<div class="form">
+  <div class="form__box">
+    <div class="form__left">
+      <div class="form__padding"><img class="form__image" src="https://i.pinimg.com/originals/8b/44/51/8b4451665d6b2139e29f29b51ffb1829.png"/></div>
+    </div>
+    <div class="form__right">
+      <div class="form__padding-right">
+        <form action="#" method="post" th:action="admin" th:object="${loginrequest}">
+          <h1 class="form__title">Login</h1>
+          <input class="form__username" type="text" th:field="*{username}" placeholder="Username"/>
+          <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+          <input class="form__password" type="text" th:field="*{password}" placeholder="******"/>
+          <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+          <input class="form__submit-btn" type="submit" value="Login"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
