@@ -1,10 +1,37 @@
-#list1 .form-control {
-    border-color: transparent;
+body {
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.6;
 }
-#list1 .form-control:focus {
-    border-color: transparent;
-    box-shadow: none;
+
+.add-todo-input,
+.edit-todo-input {
+    outline: none;
 }
-#list1 .select-input.form-control[readonly]:not([disabled]) {
-    background-color: #fbfbfb;
+
+.add-todo-input:focus,
+.edit-todo-input:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.view-opt-label,
+.date-label {
+    font-size: 0.8rem;
+}
+
+.edit-todo-input {
+    font-size: 1.3rem !important;
+    font-family: cursive !important;
+}
+
+.todo-actions {
+    visibility: hidden !important;
+}
+
+.todo-item:hover .todo-actions {
+    visibility: visible !important;
+}
+
+.todo-item.editing .todo-actions .edit-icon {
+    display: none !important;
 }
