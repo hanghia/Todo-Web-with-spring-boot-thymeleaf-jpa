@@ -59,9 +59,4 @@ public class ToDoController {
         redirectAttributes.addFlashAttribute("successmessage","You deleted successfully!");
         return "redirect:/todo";
     }
-
-    @GetMapping("/templateTODO")
-    public String getTemplate(){
-        return "client/templateTODO";
-    }
 }
