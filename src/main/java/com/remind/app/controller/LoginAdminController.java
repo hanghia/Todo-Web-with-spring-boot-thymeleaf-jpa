@@ -27,6 +27,8 @@ public class LoginAdminController {
     @GetMapping("/dashboard")
     public String home(Model model, HttpSession session){
         List<Client> clientList = adminService.getAllClient();
+        AdminDto adminDto = (AdminDto) session.getAttribute("admin");
+        model.addAttribute("InfoAdmin", adminDto);
         model.addAttribute("clientList", clientList);
         return "admin/dashbroad";
     }
@@ -58,7 +60,12 @@ public class LoginAdminController {
             return "/admin/login";
         }
 
+    }
 
+    @GetMapping("/admin/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("admin");
+        return "redirect:/admin";
     }
 
 }

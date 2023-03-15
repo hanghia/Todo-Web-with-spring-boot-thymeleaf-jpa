@@ -8,6 +8,7 @@ import com.remind.app.model.Admin;
 import com.remind.app.model.Client;
 import com.remind.app.model.ToDo;
 import com.remind.app.request.LoginRequest;
+import com.remind.app.request.RegisterRequest;
 import com.remind.app.service.impl.AdminServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -29,12 +30,14 @@ public class AdminController {
     private AdminServiceImpl adminService;
 
 
-    @GetMapping(value = "/addUser")
-    public String addUser(@ModelAttribute Client client, RedirectAttributes reD, HttpSession session){
+    @GetMapping("/addUser")
+    public String addUser(Model model, RedirectAttributes reD, HttpSession session){
         AdminDto adminDto = (AdminDto) session.getAttribute("admin");
         if(adminDto != null){
-            adminService.addClient(client);
-            reD.addFlashAttribute("successmessage", "Add to successfully!");
+           /* adminService.addClient(client);
+            *//*reD.addFlashAttribute("successmessage", "Add to successfully!");*/
+            model.addAttribute("addRequest", new RegisterRequest("","",""));
+            return "/admin/AddUser";
         }
         return "redirect:/dashboard";
     }
