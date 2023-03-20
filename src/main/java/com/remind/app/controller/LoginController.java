@@ -10,6 +10,7 @@ import com.remind.app.service.impl.ClientServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
 
     @Autowired private ClientServiceImpl clientServiceImpl;
-
+    @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
     @GetMapping("/")
     public String index(){
         return "client/index";
@@ -43,10 +44,13 @@ public class LoginController {
 
         Client client;
         try{
+
             client = clientServiceImpl.login(loginRequest.username(), loginRequest.password());
+
             session.setAttribute("client", new ClientDto(client.getClientId(), client.getClientName(), client.getFullName()));
             return "redirect:/todo";
         }catch (ClientException ex){
+            /*System.out.println(bCryptPasswordEncoder.matches(loginRequest.password(), client.getPassword()));*/
             switch (ex.getMessage()){
                 case "Username is not found":
                     result.addError(new FieldError("loginrequest", "username", "Username is not exists. Please register!"));
@@ -55,6 +59,7 @@ public class LoginController {
                     result.addError(new FieldError("loginrequest","password","Password is incorrect"));
                     break;
             }
+
             return "client/login";
         }
 

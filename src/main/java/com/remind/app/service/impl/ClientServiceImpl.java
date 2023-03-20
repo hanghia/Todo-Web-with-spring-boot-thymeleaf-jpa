@@ -5,6 +5,7 @@ import com.remind.app.model.Client;
 import com.remind.app.repository.ClientRepository;
 import com.remind.app.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,14 +16,14 @@ public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
-
+    @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public void SaveClient(String clientName, String password, String fullName) {
         // tạo optional kiểm tra xem tên có trong danh sách chưa
         Optional<Client> o_client = Optional.ofNullable(clientRepository.findByClientName(clientName));
         // nếu trả về false thì lưu
         if(!o_client.isPresent())
-            clientRepository.saveUser(clientName, fullName, password);
+            clientRepository.saveUser(clientName, fullName, bCryptPasswordEncoder.encode(password));
         else
             throw new ClientException("Username is exists");
 
@@ -45,7 +46,7 @@ public class ClientServiceImpl implements ClientService {
             throw new ClientException("Username is not found");
         }
         Client client = o_client.get();
-        if(client.getPassword().contains(password)){
+        if(bCryptPasswordEncoder.matches(password, client.getPassword())){
             return client;
         }
         else
